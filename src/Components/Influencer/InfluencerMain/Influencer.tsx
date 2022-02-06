@@ -23,9 +23,9 @@ const Influencer: React.FC = () => {
         <div className={styles.container}>
             <div className={styles.main}>
                 <InfluencerSummary></InfluencerSummary>
-                {/* <CategorisedMessages /> */}
-                <Messages></Messages>
-                <MsgInput></MsgInput>
+                <CategorisedMessages />
+                {/* <Messages></Messages>
+                <MsgInput></MsgInput> */}
                 <NavBarBottom></NavBarBottom>
             </div>
         </div>
