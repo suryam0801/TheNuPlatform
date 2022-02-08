@@ -26,7 +26,7 @@ const Influencer: React.FC = () => {
                 {/* <CategorisedMessages /> */}
                 <Messages></Messages>
                 <MsgInput></MsgInput>
-                <NavBarBottom></NavBarBottom>
+                {/* <NavBarBottom></NavBarBottom> */}
             </div>
         </div>
     );

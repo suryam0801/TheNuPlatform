@@ -10,6 +10,7 @@ import useChatsHook from "../../FirebaseCalls/useChatListener";
 import { ReplyTo } from "../../Models/Reply";
 import { writeChat } from "../../FirebaseCalls/FirebaseCalls";
 import "./messages.css";
+import { Row } from "react-bootstrap";
 
 type PropsMessage = {
   chatMessage: ChatMessage;
@@ -43,13 +44,23 @@ const Message: React.FC<PropsMessage> = (props) => {
       <div
         key={props.chatMessage.SentBy}
         className={`msg ${
-          props.chatMessage.SentBy !== "3b49AJfIMXS37u5gkxMD04Hi8yh1"
+          props.chatMessage.SentBy === "3b49AJfIMXS37u5gkxMD04Hi8yh1"
             ? "sent"
             : "received"
         }`}
       >
         {/* <img src={photoURL} alt="" /> */}
-        <p>{props.chatMessage.Message}</p>
+        <Row>
+          {props.chatMessage.ReplyTo && (
+            <Row>
+              <div className="reply">
+                <sub>Replying to:</sub>
+                <h5 style={{paddingBottom:10}}>{props.chatMessage.ReplyTo.Message}</h5>
+              </div>
+            </Row>
+          )}
+          <p>{props.chatMessage.Message}</p>
+        </Row>
       </div>
     </div>
   );
