@@ -1,36 +1,36 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import ReplyIcon from '@mui/icons-material/Reply';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import ReplyIcon from "@mui/icons-material/Reply";
 
 // Local Imports
-import styles from './styles.module.scss';
-import { ChatMessage } from '../../Models/ChatMessage';
-import { RootState } from '../../Store';
-import useChatsHook from '../../FirebaseCalls/useChatListener';
-import { ReplyTo } from '../../Models/Reply';
-import { writeChat } from '../../FirebaseCalls/FirebaseCalls';
+import styles from "./styles.module.scss";
+import { ChatMessage } from "../../Models/ChatMessage";
+import { RootState } from "../../Store";
+import useChatsHook from "../../FirebaseCalls/useChatListener";
+import { ReplyTo } from "../../Models/Reply";
+import { writeChat } from "../../FirebaseCalls/FirebaseCalls";
+import "./messages.css";
 
 type PropsMessage = {
-  chatMessage: ChatMessage
+  chatMessage: ChatMessage;
 };
 
-const Message: React.FC<PropsMessage> = props => {
-
+const Message: React.FC<PropsMessage> = (props) => {
   function makeReplyToMessage() {
-    var replyMessage = window.prompt("Reply To: " + props.chatMessage.Message)
+    var replyMessage = window.prompt("Reply To: " + props.chatMessage.Message);
 
     if (replyMessage) {
       var message = {
         Message: replyMessage,
         InfluencerId: "",
         SentBy: "",
-        Date: new Date()
-      } as ChatMessage
+        Date: new Date(),
+      } as ChatMessage;
 
       var reply = {
         Message: props.chatMessage.Message,
-        MessageId: props.chatMessage._id
-      } as ReplyTo
+        MessageId: props.chatMessage._id,
+      } as ReplyTo;
 
       message.ReplyTo = reply;
 
@@ -39,30 +39,28 @@ const Message: React.FC<PropsMessage> = props => {
   }
 
   return (
-    <div className={styles.messageContainer}>
-      {/* <img className={styles.image} alt="User" src={props.image} /> */}
-      <div className={styles.textBox}>
-        <p className={styles.username}>
-          Anonymous
-          {/* {props.username} */}
-          <span className={styles.date}>{props.chatMessage.Date}</span>
-        </p>
-        <p className={styles.message}>{props.chatMessage.Message}</p>
-        <div onClick={makeReplyToMessage}>
-          <ReplyIcon></ReplyIcon>
-        </div>
+    <div>
+      <div
+        key={props.chatMessage.SentBy}
+        className={`msg ${
+          props.chatMessage.SentBy !== "3b49AJfIMXS37u5gkxMD04Hi8yh1"
+            ? "sent"
+            : "received"
+        }`}
+      >
+        {/* <img src={photoURL} alt="" /> */}
+        <p>{props.chatMessage.Message}</p>
       </div>
     </div>
   );
 };
 
 export const Messages: React.FC = () => {
-
-  const messages = useSelector((state: RootState) => state.chatsState.messages)
+  const messages = useSelector((state: RootState) => state.chatsState.messages);
   useChatsHook();
 
   useEffect(() => {
-    const chatElement = document.getElementById('chat');
+    const chatElement = document.getElementById("chat");
     if (chatElement) {
       chatElement.scrollTop = chatElement.scrollHeight;
     }
@@ -71,11 +69,11 @@ export const Messages: React.FC = () => {
   return (
     <div id="chat" className={styles.container}>
       <div className={styles.wrapper}>
-        {messages.map(message => (
-          <Message
-            chatMessage={message}
-          />
-        ))}
+        <div className="msgs">
+          {messages.map((message) => (
+            <Message chatMessage={message} />
+          ))}
+        </div>
       </div>
     </div>
   );
