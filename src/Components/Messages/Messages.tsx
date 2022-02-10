@@ -11,9 +11,11 @@ import { writeChat } from "../../FirebaseCalls/FirebaseCalls";
 import "./messages.css";
 import { Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { auth } from "../../firebase";
 
 type PropsMessage = {
   chatMessage: ChatMessage;
+  influencerId: string;
 };
 
 const Message: React.FC<PropsMessage> = (props) => {
@@ -39,15 +41,27 @@ const Message: React.FC<PropsMessage> = (props) => {
     }
   }
 
+  function getMessageAlignment () {
+    if (auth.currentUser) {
+      if (props.chatMessage.SentBy === auth.currentUser?.uid) {
+        return "sent"
+      } else {
+        return "received"
+      }
+    } else {
+      if (props.chatMessage.SentBy === props.influencerId) {
+        return "received"
+      } else {
+        return "sent"
+      }
+    }
+  }
+
   return (
     <div>
       <div
         key={props.chatMessage.SentBy}
-        className={`msg ${
-          props.chatMessage.SentBy === "3b49AJfIMXS37u5gkxMD04Hi8yh1"
-            ? "sent"
-            : "received"
-        }`}
+        className={`msg ${getMessageAlignment()}`}
       >
         {/* <img src={photoURL} alt="" /> */}
         <Row>
@@ -72,11 +86,7 @@ export const Messages: React.FC = () => {
   const messages = useSelector((state: RootState) => state.chatsState.messages);
   useChatsHook();
 
-  const { id } = useParams();
-
-  useEffect(() => {
-    console.log(id);
-  }, [id]);
+  const {id} = useParams();
 
   useEffect(() => {
     const chatElement = document.getElementById("chat");
@@ -90,7 +100,7 @@ export const Messages: React.FC = () => {
       <div className={styles.wrapper}>
         <div className="msgs">
           {messages.map((message) => (
-            <Message chatMessage={message} />
+            <Message chatMessage={message} influencerId={id ?? ""}/>
           ))}
         </div>
       </div>

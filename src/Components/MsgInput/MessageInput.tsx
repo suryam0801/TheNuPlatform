@@ -7,9 +7,12 @@ import styles from "./styles.module.scss";
 import { writeChat } from "../../FirebaseCalls/FirebaseCalls";
 import { ChatMessage } from "../../Models/ChatMessage";
 import { auth } from "../../firebase";
+import { useParams } from "react-router-dom";
 
 export const MsgInput: React.FC = () => {
   const [msg, setMsg] = useState("");
+
+  const { id } = useParams();
 
   const getDateString = () => {
     const monthNames = [
@@ -35,9 +38,10 @@ export const MsgInput: React.FC = () => {
   };
 
   const sendHandler = () => {
+    
     writeChat({
       Message: msg,
-      InfluencerId: "",
+      InfluencerId: auth.currentUser?.uid ?? id,
       SentBy: auth.currentUser ? auth.currentUser!.uid : "",
       Date: new Date(),
     } as ChatMessage);
@@ -47,11 +51,10 @@ export const MsgInput: React.FC = () => {
   return (
     <div
       className={styles.container}
-      // onClick={props.onClick}
     >
       <InputBase
         className={styles.input}
-        placeholder="Write here..."
+        placeholder="Write here.. (everything is anonymous)"
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
         onKeyDown={(e) => {
