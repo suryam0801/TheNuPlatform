@@ -38,20 +38,17 @@ export const MsgInput: React.FC = () => {
   };
 
   const sendHandler = () => {
-    
     writeChat({
       Message: msg,
       InfluencerId: auth.currentUser?.uid ?? id,
       SentBy: auth.currentUser ? auth.currentUser!.uid : "",
-      Date: new Date(),
+      Date: new Date().valueOf(),
     } as ChatMessage);
     setMsg("");
   };
 
   return (
-    <div
-      className={styles.container}
-    >
+    <div className={styles.container}>
       <InputBase
         className={styles.input}
         placeholder="Write here.. (everything is anonymous)"

@@ -6,7 +6,7 @@ import { Messages } from '../../Messages/Messages';
 import { MsgInput } from '../../MsgInput/MessageInput';
 
 // Local Imports
-import ChipsArray from '../InfluencerSummary/InfluencerSummary';
+import ChipsArray from '../ChipsArray/ChipsArray';
 import styles from '../../Chat/styles.module.scss';
 
 const Influencer: React.FC = () => {

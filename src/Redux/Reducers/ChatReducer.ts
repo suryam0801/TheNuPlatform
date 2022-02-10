@@ -10,12 +10,10 @@ export enum ChatReducer_Types {
 
 export interface ChatState {
     messages: ChatMessage[]
-    categorisedMessages: CategorisedMessage[]
 }
 
 const initialState: ChatState = {
     messages: [],
-    categorisedMessages: []
 }
 
 export const ChatReducer = (state: ChatState = initialState, action: Action): ChatState => {
@@ -24,11 +22,6 @@ export const ChatReducer = (state: ChatState = initialState, action: Action): Ch
             return {
                 ...state,
                 messages: action.payload
-            }
-        case ChatReducer_Types.SET_CATEGORISED_MESSAGES:
-            return {
-                ...state,
-                categorisedMessages: action.payload
             }
         case ChatReducer_Types.APPEND_NEW_MESSAGE:
             return {

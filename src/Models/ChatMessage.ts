@@ -6,7 +6,7 @@ export type ChatMessage = {
     Message: string
     InfluencerId: string
     SentBy: string //since its anonymous messages, do we need this?
-    Date: Date
+    Date: number
     ReplyTo?: ReplyTo
-    Category?: string
+    Category: string
 };

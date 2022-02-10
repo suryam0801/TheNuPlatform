@@ -1,11 +1,11 @@
 import { getCall } from "../Http/http-helpers";
 
 export async function QuestionsClassifier(text: string) {
-    let response = await getCall("30596328-6649-4564-abee-923973e4632d/slots/staging/predict?verbose=true&show-all-intents=true&log=true&subscription-key=1178a63d6a6a4872a50a27eee7056a8b&query=" + text)
+    let response = await getCall("f00f7597-396a-42ab-b54c-ac09d2ed8d7d/slots/production/predict?verbose=true&show-all-intents=true&log=true&subscription-key=8bd7ad09a79241e697fcd097a176ba89&query=" + text)
     return response.data["prediction"]["topIntent"];
 }
 
 export async function CommentsClassifier(text: string) {
-    let response = await getCall("6a72741b-9af2-4193-96ae-9f6a3cf66c12/slots/production/predict?verbose=true&show-all-intents=true&log=true&subscription-key=1178a63d6a6a4872a50a27eee7056a8b&query=" + text)
+    let response = await getCall("7dd97ba7-33c3-4cda-b70c-ddb4d9eb80f2/slots/production/predict?verbose=true&show-all-intents=true&log=true&subscription-key=8bd7ad09a79241e697fcd097a176ba89&query=" + text)
     return response.data["prediction"]["topIntent"];
 }
