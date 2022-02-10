@@ -6,10 +6,8 @@ import { Messages } from '../../Messages/Messages';
 import { MsgInput } from '../../MsgInput/MessageInput';
 
 // Local Imports
-import { NavBarBottom } from '../../NavBarBottom/NavBarBottom';
-import CategorisedMessages from '../CategorisedMessages/CategorisedMessages';
-import { InfluencerSummary } from '../InfluencerSummary/InfluencerSummary';
-import styles from './styles.module.scss';
+import ChipsArray from '../InfluencerSummary/InfluencerSummary';
+import styles from '../../Chat/styles.module.scss';
 
 const Influencer: React.FC = () => {
     const dispatch = useDispatch()
@@ -22,11 +20,9 @@ const Influencer: React.FC = () => {
     return (
         <div className={styles.container}>
             <div className={styles.main}>
-                <InfluencerSummary></InfluencerSummary>
-                {/* <CategorisedMessages /> */}
+                <ChipsArray></ChipsArray>
                 <Messages></Messages>
                 <MsgInput></MsgInput>
-                {/* <NavBarBottom></NavBarBottom> */}
             </div>
         </div>
     );

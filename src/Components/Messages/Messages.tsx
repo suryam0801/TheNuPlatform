@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import ReplyIcon from "@mui/icons-material/Reply";
 
 // Local Imports
 import styles from "./styles.module.scss";
@@ -11,6 +10,7 @@ import { ReplyTo } from "../../Models/Reply";
 import { writeChat } from "../../FirebaseCalls/FirebaseCalls";
 import "./messages.css";
 import { Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 type PropsMessage = {
   chatMessage: ChatMessage;
@@ -55,7 +55,9 @@ const Message: React.FC<PropsMessage> = (props) => {
             <Row>
               <div className="reply">
                 <sub>Replying to:</sub>
-                <h5 style={{paddingBottom:10}}>{props.chatMessage.ReplyTo.Message}</h5>
+                <h5 style={{ paddingBottom: 10 }}>
+                  {props.chatMessage.ReplyTo.Message}
+                </h5>
               </div>
             </Row>
           )}
@@ -69,6 +71,12 @@ const Message: React.FC<PropsMessage> = (props) => {
 export const Messages: React.FC = () => {
   const messages = useSelector((state: RootState) => state.chatsState.messages);
   useChatsHook();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    console.log(id);
+  }, [id]);
 
   useEffect(() => {
     const chatElement = document.getElementById("chat");
