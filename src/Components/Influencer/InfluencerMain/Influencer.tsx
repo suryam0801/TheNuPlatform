@@ -21,14 +21,15 @@ const Influencer: React.FC = () => {
 
   // Render
   return (
-    <div style={{maxWidth: width, maxHeight: height}}>
-      <div className={styles.container}>
-        <div className={styles.main}>
-          <ChipsArray></ChipsArray>
-          <Messages></Messages>
-          <MsgInput></MsgInput>
-        </div>
-      </div>
+    <div className="App">
+      <header>
+        {/* <h1>NuePlatform</h1> */}
+        <ChipsArray></ChipsArray>
+      </header>
+      <section>
+        <Messages></Messages>
+        <MsgInput></MsgInput>
+      </section>
     </div>
   );
 };

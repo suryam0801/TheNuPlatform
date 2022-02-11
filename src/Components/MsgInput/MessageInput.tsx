@@ -14,29 +14,6 @@ export const MsgInput: React.FC = () => {
 
   const { id } = useParams();
 
-  const getDateString = () => {
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    let dateObj = new Date();
-    let month = monthNames[dateObj.getMonth()];
-    let day = String(dateObj.getDate()).padStart(2, "0");
-    let output = month + " " + day + ",";
-
-    return `${output} - ${new Date().getHours()}:${new Date().getMinutes()}`;
-  };
-
   const sendHandler = () => {
     writeChat({
       Message: msg,
@@ -48,9 +25,8 @@ export const MsgInput: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <form>
       <InputBase
-        className={styles.input}
         placeholder="Write here.. (everything is anonymous)"
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
@@ -60,9 +36,9 @@ export const MsgInput: React.FC = () => {
           }
         }}
       />
-      <IconButton className={styles.iconButton} onClick={sendHandler}>
-        <SendIcon className={styles.send} />
+      <IconButton onClick={sendHandler}>
+        <SendIcon />
       </IconButton>
-    </div>
+    </form>
   );
 };
