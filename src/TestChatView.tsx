@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import useChatsHook from "./FirebaseCalls/useChatListener";
 import { Message } from "./Components/Message/Message";
+import { getRandomInt } from "./Utils/GeneralUtils";
 
 export default function TestChatView() {
   const user = useContext(AuthContext);
@@ -70,12 +71,18 @@ function ChatRoom() {
     }
   });
 
+  const influencerPicNumber = getRandomInt(0, 8);
+
   return (
     <>
       <div id="chat" className="main">
         {messages &&
           messages.map((msg) => (
-            <Message influencerId={msg.InfluencerId} chatMessage={msg} />
+            <Message
+              influencerPicNumber={influencerPicNumber}
+              influencerId={msg.InfluencerId}
+              chatMessage={msg}
+            />
           ))}
       </div>
 

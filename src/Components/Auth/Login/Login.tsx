@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import "../../../App.css";
 // Local Imports
 import CustomButton from "../../CustomButton/index";
 import styles from "./styles.module.scss";
@@ -29,32 +29,33 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
-        <TextField
-          className={styles.input}
-          id="email"
-          label="Email"
-          variant="outlined"
-          type="text"
-          focused
-          helperText={formik.touched.email && formik.errors.email}
-          error={formik.touched.email && !!formik.errors.email}
-          {...formik.getFieldProps("email")}
-        />
-        <TextField
-          className={styles.input}
-          id="password"
-          label="Password"
-          variant="outlined"
-          type="password"
-          focused
-          {...formik.getFieldProps("password")}
-          helperText={formik.touched.password && formik.errors.password}
-          error={formik.touched.password && !!formik.errors.password}
-        />
-        <Link to="/signup">
-          <p className={styles.guest}>Don't have an account? Sign Up</p>
-        </Link>
+      <TextField
+        className={styles.input}
+        id="email"
+        label="Email"
+        color="success"
+        focused
+        helperText={formik.touched.email && formik.errors.email}
+        error={formik.touched.email && !!formik.errors.email}
+        {...formik.getFieldProps("email")}
+        sx={{ input: { color: "white" } }}
+      />
+      <TextField
+        className={styles.input}
+        id="password"
+        label="Password"
+        color="success"
+        type="password"
+        focused
+        {...formik.getFieldProps("password")}
+        helperText={formik.touched.password && formik.errors.password}
+        error={formik.touched.password && !!formik.errors.password}
+        sx={{ input: { color: "white" } }}
+      />
+      <Link to="/signup">
+        <p className={styles.guest}>Don't have an account? Sign Up</p>
+      </Link>
+      <div>
         <CustomButton
           type="submit"
           onClick={formik.handleSubmit}
@@ -62,7 +63,7 @@ const Login: React.FC = () => {
           title="Login"
           small={false}
         />
-      </form>
+      </div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { RootState } from "../../Store";
 import useChatsHook from "../../FirebaseCalls/useChatListener";
 import { useParams } from "react-router-dom";
 import { Message } from "../Message/Message";
+import { getRandomInt } from "../../Utils/GeneralUtils";
 
 export const Messages: React.FC = () => {
   const categories = useSelector(
@@ -38,11 +39,14 @@ export const Messages: React.FC = () => {
     }
   });
 
+  const influencerPicNumber = getRandomInt(0, 8);
+
   return (
     <div id="chat" className="main">
       {messages.map((message) => (
-        <Message chatMessage={message} influencerId={id ?? ""} />
+        <Message influencerPicNumber={influencerPicNumber} chatMessage={message} influencerId={id ?? ""} />
       ))}
+      
     </div>
   );
 };

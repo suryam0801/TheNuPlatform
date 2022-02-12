@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetCategoryAction } from "../../../Redux/Actions/SelectedCategoryActions";
 import { RootState } from "../../../Store";
 import { auth } from "../../../firebase";
+import ShareIcon from "@mui/icons-material/Share";
+import LogoutIcon from '@mui/icons-material/Logout';
+import useAuthHook from "../../../FirebaseCalls/useAuthHook";
 
 interface ChipData {
   key: number;
@@ -23,9 +26,7 @@ export default function ChipsArray() {
     (state: RootState) => state.selectedCategoryReducer
   );
 
-  const user = useSelector((state: RootState) => state.userReducer.user);
-
-  const { width, height } = useWindowSize();
+  const { width } = useWindowSize();
 
   const [widthToUse, setwidthToUse] = React.useState("300px");
 
@@ -33,18 +34,23 @@ export default function ChipsArray() {
     categoriesState.categories
   );
 
+  const {logOut}  = useAuthHook();
+
   function handleClick(chip: ChipData) {
     dispatch(SetCategoryAction(chip.key));
   }
 
   React.useEffect(() => {
     console.log(width);
-    setwidthToUse(width - 10 + "px");
+    setwidthToUse(width - 5 + "px");
   }, [width]);
 
   async function showInfoWindow() {
     try {
-      await navigator.share({ title: "Share My Page", url: "#/" + auth.currentUser!.uid});
+      await navigator.share({
+        title: "Share My Page",
+        url: "#/" + auth.currentUser!.uid,
+      });
       console.log("Data was shared successfully");
     } catch (err) {
       console.error("Share failed:", err);
@@ -58,25 +64,37 @@ export default function ChipsArray() {
         justifyContent: "left",
         flexWrap: "nowrap",
         listStyle: "none",
-        overflow: "auto",
+        overflow: "scroll",
         maxWidth: widthToUse,
-        p: 0.5,
+        p: 0.2,
         m: 0,
+        alignItems: "center"
       }}
       component="ul"
     >
-      <InfoIcon
-        style={{ width: 30, height: 30, marginRight: 10 }}
+      <LogoutIcon
+        style={{ width: 25, height: 25, marginRight: 5, color: "#1672f9" }}
+        onClick={logOut}
+      ></LogoutIcon>
+      <ShareIcon
+        style={{ width: 25, height: 25, marginRight: 10, color: "#1672f9" }}
         onClick={showInfoWindow}
-      ></InfoIcon>
+      ></ShareIcon>
       {chipData.map((chip) => {
         return (
           <ListItem key={chip.key}>
             <Chip
-              style={{ marginRight: 5 }}
+              style={{
+                marginRight: 5,
+                color: categoriesState.category == chip.key ? "white" : "#149c4a",
+                backgroundColor: categoriesState.category == chip.key ? "#149c4a" : "white",
+                borderWidth: 1,
+                borderColor: categoriesState.category == chip.key ? "white" : "#149c4a"
+              }}
               label={chip.label}
+              color="default"
+              variant="outlined"
               onClick={() => handleClick(chip)}
-              color={categoriesState.category == chip.key ? "success" : "info"}
             />
           </ListItem>
         );

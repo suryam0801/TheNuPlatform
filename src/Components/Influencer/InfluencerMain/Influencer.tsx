@@ -7,13 +7,10 @@ import { MsgInput } from "../../MsgInput/MessageInput";
 
 // Local Imports
 import ChipsArray from "../ChipsArray/ChipsArray";
-import styles from "../../Chat/styles.module.scss";
-import { useWindowSize } from "react-use";
+import IdentitySeparationRow from "../IdentitySeparationRow/IdentitySeparationRow";
 
 const Influencer: React.FC = () => {
   const dispatch = useDispatch();
-
-  const { width, height } = useWindowSize();
 
   useEffect(() => {
     dispatch(GetUser(auth.currentUser!.uid));
@@ -25,6 +22,7 @@ const Influencer: React.FC = () => {
       <header>
         {/* <h1>NuePlatform</h1> */}
         <ChipsArray></ChipsArray>
+        <IdentitySeparationRow></IdentitySeparationRow>
       </header>
       <section>
         <Messages></Messages>

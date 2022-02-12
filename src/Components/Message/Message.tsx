@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Local Imports
 import { ChatMessage } from "../../Models/ChatMessage";
 import { ReplyTo } from "../../Models/Reply";
 import { writeChat } from "../../FirebaseCalls/FirebaseCalls";
-import { Row } from "react-bootstrap";
 import { auth } from "../../firebase";
+
+// RCE CSS
+import "react-chat-elements/dist/main.css";
+import { avatarUrls } from "../../Utils/AvatarUrl";
+import { getRandomInt, randomExcluded } from "../../Utils/GeneralUtils";
 
 type PropsMessage = {
   chatMessage: ChatMessage;
   influencerId: string;
+  influencerPicNumber: number;
 };
 
 export const Message: React.FC<PropsMessage> = (props) => {
+
   function makeReplyToMessage() {
     var replyMessage = window.prompt("Reply To: " + props.chatMessage.Message);
 
@@ -72,10 +78,13 @@ export const Message: React.FC<PropsMessage> = (props) => {
         className={`message ${getMessageAlignment()}`}
         onClick={makeReplyToMessage}
       >
+        <img
+          src={(props.chatMessage.InfluencerId === props.chatMessage.SentBy ? avatarUrls[props.influencerPicNumber] : avatarUrls[randomExcluded(0, 8, props.influencerPicNumber)])}
+        />
         <div>
           {props.chatMessage.ReplyTo && (
             <div className={getReplyColor()}>
-              <h5>{props.chatMessage.ReplyTo.Message}</h5>
+              <h5 style={{color:'white'}}>{props.chatMessage.ReplyTo.Message}</h5>
             </div>
           )}
           <p>{props.chatMessage.Message}</p>

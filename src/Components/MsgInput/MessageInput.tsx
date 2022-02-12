@@ -27,18 +27,39 @@ export const MsgInput: React.FC = () => {
   return (
     <form>
       <InputBase
+        fullWidth
         placeholder="Write here.. (everything is anonymous)"
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
+        multiline={true}
+        maxRows={3}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             sendHandler();
           }
         }}
+        style={{
+          backgroundColor: "white",
+          borderRadius: 10,
+          padding: 15,
+          margin: 5,
+          fontSize: 13
+        }}
       />
-      <IconButton onClick={sendHandler}>
-        <SendIcon />
-      </IconButton>
+
+      <div
+        style={{
+          backgroundColor: "black",
+          borderRadius: 10,
+          padding: 5,
+          margin: 5,
+          alignItems: "center"
+        }}
+      >
+        <IconButton onClick={sendHandler} style={{ color: "white", width: 35 }}>
+          <SendIcon/>
+        </IconButton>
+      </div>
     </form>
   );
 };
