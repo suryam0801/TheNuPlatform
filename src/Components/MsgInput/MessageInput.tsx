@@ -14,13 +14,15 @@ export const MsgInput: React.FC = () => {
   const { id } = useParams();
 
   const sendHandler = () => {
-    writeChat({
-      Message: msg,
-      InfluencerId: auth.currentUser?.uid ?? id,
-      SentBy: auth.currentUser ? auth.currentUser!.uid : "",
-      Date: new Date().valueOf(),
-    } as ChatMessage);
-    setMsg("");
+    if (msg) {
+      writeChat({
+        Message: msg,
+        InfluencerId: auth.currentUser?.uid ?? id,
+        SentBy: auth.currentUser ? auth.currentUser!.uid : "",
+        Date: new Date().valueOf(),
+      } as ChatMessage);
+      setMsg("");
+    }
   };
 
   return (
@@ -42,7 +44,7 @@ export const MsgInput: React.FC = () => {
           borderRadius: 10,
           padding: 15,
           margin: 5,
-          fontSize: 13
+          fontSize: 13,
         }}
       />
 
@@ -52,11 +54,14 @@ export const MsgInput: React.FC = () => {
           borderRadius: 10,
           padding: 5,
           margin: 5,
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
-        <IconButton onClick={sendHandler} style={{ color: "white", width: 35, height: 35 }}>
-          <SendIcon/>
+        <IconButton
+          onClick={sendHandler}
+          style={{ color: "white", width: 35, height: 35 }}
+        >
+          <SendIcon />
         </IconButton>
       </div>
     </form>

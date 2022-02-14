@@ -4,9 +4,11 @@ import ShareIcon from "@mui/icons-material/Share";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { auth } from "../../firebase";
 import { Grid, IconButton } from "@mui/material";
-import { SignOut } from "../../FirebaseCalls/useAuthHook";
+import useAuthHook from "../../CustomHooks/useAuthHook";
 
 export default function LogoutAndShareBar() {
+
+  const {SignOut} = useAuthHook();
 
   async function showInfoWindow() {
     try {

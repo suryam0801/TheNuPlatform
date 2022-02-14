@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from "redux"; 
 import thunk from "redux-thunk";
 import { ChatReducer } from "./Redux/Reducers/ChatReducer";
+import { LoginReducer } from "./Redux/Reducers/LoginReducer";
 import { SelectedCategoryReducer } from "./Redux/Reducers/SelectedCategoryReducer";
 import { UITriggerReducer } from "./Redux/Reducers/UITriggerReducer";
 import { UserReducer } from "./Redux/Reducers/UserReducer";
@@ -9,7 +10,8 @@ const rootReducer = combineReducers({
     chatsState: ChatReducer,
     userReducer: UserReducer,
     selectedCategoryReducer: SelectedCategoryReducer,
-    uiTriggerReducer: UITriggerReducer
+    uiTriggerReducer: UITriggerReducer,
+    loginReducer: LoginReducer
 });
 
 const Store = createStore(rootReducer, applyMiddleware(thunk));

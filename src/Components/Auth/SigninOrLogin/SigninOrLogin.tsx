@@ -8,8 +8,6 @@ import { PhoneNumberLogin } from "../../PhoneNumberAuth/PhoneNumberLogin";
 const SigninOrLogin: React.FC = () => {
   return (
     <div className={styles.container}>
-      {/* <Nueplatformheader></Nueplatformheader> */}
-
       <PhoneNumberLogin></PhoneNumberLogin>
     </div>
   );
