@@ -46,7 +46,6 @@ export const Messages: React.FC = () => {
       {messages.map((message) => (
         <Message influencerPicNumber={influencerPicNumber} chatMessage={message} influencerId={id ?? ""} />
       ))}
-      
     </div>
   );
 };

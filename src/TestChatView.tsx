@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "./Components/Auth/Context/AuthContext";
-import Login from "./Components/Auth/Login/Login";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { RootState } from "./Store";
@@ -14,6 +13,7 @@ import SendIcon from "@mui/icons-material/Send";
 import useChatsHook from "./FirebaseCalls/useChatListener";
 import { Message } from "./Components/Message/Message";
 import { getRandomInt } from "./Utils/GeneralUtils";
+import SigninOrLogin from "./Components/Auth/SigninOrLogin/SigninOrLogin";
 
 export default function TestChatView() {
   const user = useContext(AuthContext);
@@ -24,7 +24,7 @@ export default function TestChatView() {
         <h1>NuePlatform</h1>
       </header>
 
-      <section>{user ? <ChatRoom /> : <Login />}</section>
+      <section>{user ? <ChatRoom /> : <SigninOrLogin />}</section>
     </div>
   );
 }

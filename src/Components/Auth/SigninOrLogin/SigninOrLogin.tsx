@@ -1,42 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
-// Local Imports
-import logo from "../../../assets/cropped.png";
-import CustomButton from "../../CustomButton/index";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import GoogleSignin from "../GoogleSignup/GoogleSignup";
 
-type Props = {};
+import Nueplatformheader from "../../NUEPLATFORMHeader/nueplatformheader";
+import { PhoneNumberLogin } from "../../PhoneNumberAuth/PhoneNumberLogin";
 
-const Welcome: React.FC<Props> = (props) => {
-  const dispatch = useDispatch();
 
+const SigninOrLogin: React.FC = () => {
   return (
     <div className={styles.container}>
-      <Link to="/login">
-        <CustomButton
-          onClick={() => {}}
-          isPurple={false}
-          title="Login"
-          small={false}
-        />
-      </Link>
-      <Link to="/signup">
-        <CustomButton
-          onClick={() => {}}
-          isPurple={true}
-          title="Signup"
-          small={false}
-        />
-      </Link>
+      {/* <Nueplatformheader></Nueplatformheader> */}
 
-      <h2>Or</h2>
-
-      <GoogleSignin></GoogleSignin>
+      <PhoneNumberLogin></PhoneNumberLogin>
     </div>
   );
 };
 
-export default Welcome;
+export default SigninOrLogin;

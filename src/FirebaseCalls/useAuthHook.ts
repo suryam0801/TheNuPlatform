@@ -1,80 +1,47 @@
-import { getAuth, signInWithRedirect, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { provider } from "../firebase";
-import { User } from "../Models/User";
-import { writeNewUser } from "./FirebaseCalls";
+import {
+    signInWithPhoneNumber,
+    getAuth,
+    RecaptchaVerifier,
+    ConfirmationResult,
+    UserCredential,
+} from '@firebase/auth';
 
-export default function useAuthHook() {
-    const auth = getAuth();
+let confirmationR: ConfirmationResult | null = null;
+let userCredential: UserCredential | null | 'wrong otp' = null;
 
-    function makeUser(name: string, email: string, password: string) {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
+function getAppVerifier() {
+    return new RecaptchaVerifier(
+        'sign-in-button',
+        {
+            size: 'invisible',
+            callback: (response: any) => {
+                // reCAPTCHA solved, allow signInWithPhoneNumber.
+                //onSignInSubmit();
+            },
+        },
+        getAuth(),
+    );
+}
 
-                var userObj = { Username: name, UserId: user.uid, Email: email } as User
+export const SignInWithPhoneNumberHelper = async (phoneNumber: string) => {
+    await signInWithPhoneNumber(getAuth(), phoneNumber, getAppVerifier()).then(
+        function (confirmationResult) {
+            confirmationR = confirmationResult;
+        },
+    );
+    return confirmationR?.verificationId;
+};
 
-                writeNewUser(userObj)
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-
-                switch (errorCode) {
-                    case "auth/email-already-in-use":
-                        signInUser(email, password)
-                        break;
-                }
-            });
-    }
-
-    function googleAuthUser() {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential?.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                // ...
-            }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                // ...
-            });
-    }
-
-    function signInUser(email: string, password: string) {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-
-                switch (errorCode) {
-                    case "auth/wrong-password":
-                        //TODO: Handle wrong password
-                        break;
-                }
-            });
-    }
-
-    function logOut() {
-        signOut(auth).then(() => {
-            // Sign-out successful.
-        }).catch((error) => {
-            // An error happened.
+export const VerifyOtp = (otp: string) => {
+    confirmationR &&
+        confirmationR.confirm(otp).then((result) => {
+            userCredential = result !== null ? result : 'wrong otp';
         });
+    return userCredential;
+};
+
+export function SignOut() {
+    if (window.confirm('Are you sure you want to logout?')) {
+        getAuth().signOut();
     }
-    return { makeUser, signInUser, googleAuthUser, logOut };
 }

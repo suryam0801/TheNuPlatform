@@ -17,26 +17,29 @@ type PropsMessage = {
 };
 
 export const Message: React.FC<PropsMessage> = (props) => {
-
   function makeReplyToMessage() {
-    var replyMessage = window.prompt("Reply To: " + props.chatMessage.Message);
+    if (auth.currentUser) {
+      var replyMessage = window.prompt(
+        "Reply To: " + props.chatMessage.Message
+      );
 
-    if (replyMessage) {
-      var message = {
-        Message: replyMessage,
-        InfluencerId: props.chatMessage.InfluencerId,
-        SentBy: auth.currentUser?.uid ?? "",
-        Date: new Date().valueOf(),
-      } as ChatMessage;
+      if (replyMessage) {
+        var message = {
+          Message: replyMessage,
+          InfluencerId: props.chatMessage.InfluencerId,
+          SentBy: auth.currentUser?.uid ?? "",
+          Date: new Date().valueOf(),
+        } as ChatMessage;
 
-      var reply = {
-        Message: props.chatMessage.Message,
-        MessageId: props.chatMessage._id,
-      } as ReplyTo;
+        var reply = {
+          Message: props.chatMessage.Message,
+          MessageId: props.chatMessage._id,
+        } as ReplyTo;
 
-      message.ReplyTo = reply;
+        message.ReplyTo = reply;
 
-      writeChat(message);
+        writeChat(message);
+      }
     }
   }
 
@@ -79,12 +82,18 @@ export const Message: React.FC<PropsMessage> = (props) => {
         onClick={makeReplyToMessage}
       >
         <img
-          src={(props.chatMessage.InfluencerId === props.chatMessage.SentBy ? avatarUrls[props.influencerPicNumber] : avatarUrls[randomExcluded(0, 8, props.influencerPicNumber)])}
+          src={
+            props.chatMessage.InfluencerId === props.chatMessage.SentBy
+              ? avatarUrls[props.influencerPicNumber]
+              : avatarUrls[randomExcluded(0, 8, props.influencerPicNumber)]
+          }
         />
         <div>
           {props.chatMessage.ReplyTo && (
             <div className={getReplyColor()}>
-              <h5 style={{color:'white'}}>{props.chatMessage.ReplyTo.Message}</h5>
+              <h5 style={{ color: "white" }}>
+                {props.chatMessage.ReplyTo.Message}
+              </h5>
             </div>
           )}
           <p>{props.chatMessage.Message}</p>

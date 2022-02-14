@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { ref, onChildAdded, onChildChanged, onChildRemoved, query, orderByChild, equalTo } from "firebase/database";
+import { ref, onChildAdded, onChildChanged, onChildRemoved, query, orderByChild, equalTo, limitToLast } from "firebase/database";
 import { auth, db } from "../firebase";
 import { useEffect } from "react";
 import { SetMessage } from "../Redux/Actions/ChatActions";
@@ -21,7 +21,7 @@ export default function useChatsHook() {
             searchBy = id!
         }
 
-        const commentsRef = query(ref(db, 'messages'), orderByChild('InfluencerId'), equalTo(searchBy));
+        const commentsRef = query(ref(db, 'messages'), orderByChild('InfluencerId'), equalTo(searchBy), limitToLast(100));
 
         onChildAdded(commentsRef, (data) => {
             dispatch(SetMessage(data.val()))

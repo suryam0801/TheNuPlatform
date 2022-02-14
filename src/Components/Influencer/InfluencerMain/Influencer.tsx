@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { auth } from "../../../firebase";
 import { GetUser } from "../../../Redux/Actions/UserActions";
+import LogoutAndShareBar from "../../LogoutAndShareBar/LogoutAndShareBar";
 import { Messages } from "../../Messages/Messages";
 import { MsgInput } from "../../MsgInput/MessageInput";
 
 // Local Imports
 import ChipsArray from "../ChipsArray/ChipsArray";
-import IdentitySeparationRow from "../IdentitySeparationRow/IdentitySeparationRow";
+import NewInfluencerPlaceholder from "../NewInfluencerPlaceholder/NewInfluencerPlaceholder";
 
 const Influencer: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,10 +23,11 @@ const Influencer: React.FC = () => {
       <header>
         {/* <h1>NuePlatform</h1> */}
         <ChipsArray></ChipsArray>
-        <IdentitySeparationRow></IdentitySeparationRow>
+        <LogoutAndShareBar></LogoutAndShareBar>
       </header>
       <section>
-        <Messages></Messages>
+        <NewInfluencerPlaceholder></NewInfluencerPlaceholder>
+        {/* <Messages></Messages> */}
         <MsgInput></MsgInput>
       </section>
     </div>

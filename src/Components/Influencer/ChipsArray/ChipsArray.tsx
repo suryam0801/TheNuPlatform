@@ -2,15 +2,10 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
-import InfoIcon from "@mui/icons-material/Info";
 import { useWindowSize } from "react-use";
 import { useDispatch, useSelector } from "react-redux";
 import { SetCategoryAction } from "../../../Redux/Actions/SelectedCategoryActions";
 import { RootState } from "../../../Store";
-import { auth } from "../../../firebase";
-import ShareIcon from "@mui/icons-material/Share";
-import LogoutIcon from '@mui/icons-material/Logout';
-import useAuthHook from "../../../FirebaseCalls/useAuthHook";
 
 interface ChipData {
   key: number;
@@ -34,8 +29,6 @@ export default function ChipsArray() {
     categoriesState.categories
   );
 
-  const {logOut}  = useAuthHook();
-
   function handleClick(chip: ChipData) {
     dispatch(SetCategoryAction(chip.key));
   }
@@ -44,19 +37,7 @@ export default function ChipsArray() {
     console.log(width);
     setwidthToUse(width - 5 + "px");
   }, [width]);
-
-  async function showInfoWindow() {
-    try {
-      await navigator.share({
-        title: "Share My Page",
-        url: "#/" + auth.currentUser!.uid,
-      });
-      console.log("Data was shared successfully");
-    } catch (err) {
-      console.error("Share failed:", err);
-    }
-  }
-
+  
   return (
     <Paper
       sx={{
@@ -72,14 +53,6 @@ export default function ChipsArray() {
       }}
       component="ul"
     >
-      <LogoutIcon
-        style={{ width: 25, height: 25, marginRight: 5, color: "#1672f9" }}
-        onClick={logOut}
-      ></LogoutIcon>
-      <ShareIcon
-        style={{ width: 25, height: 25, marginRight: 10, color: "#1672f9" }}
-        onClick={showInfoWindow}
-      ></ShareIcon>
       {chipData.map((chip) => {
         return (
           <ListItem key={chip.key}>

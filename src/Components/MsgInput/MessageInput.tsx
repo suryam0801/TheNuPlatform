@@ -3,7 +3,6 @@ import { InputBase, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 // Local Imports
-import styles from "./styles.module.scss";
 import { writeChat } from "../../FirebaseCalls/FirebaseCalls";
 import { ChatMessage } from "../../Models/ChatMessage";
 import { auth } from "../../firebase";
@@ -32,7 +31,7 @@ export const MsgInput: React.FC = () => {
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
         multiline={true}
-        maxRows={3}
+        maxRows={2}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             sendHandler();
@@ -56,7 +55,7 @@ export const MsgInput: React.FC = () => {
           alignItems: "center"
         }}
       >
-        <IconButton onClick={sendHandler} style={{ color: "white", width: 35 }}>
+        <IconButton onClick={sendHandler} style={{ color: "white", width: 35, height: 35 }}>
           <SendIcon/>
         </IconButton>
       </div>

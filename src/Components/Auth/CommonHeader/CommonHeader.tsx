@@ -21,6 +21,8 @@ export default function CommonHeader() {
               fontWeight: "bold",
               textAlign: "center",
               alignItems: "center",
+              paddingTop: 5,
+              paddingLeft: 5
             }}
           >
             {/* n u e p l a t f o r m */}N U E P L A T F O R M
@@ -31,7 +33,7 @@ export default function CommonHeader() {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              style={{ height: 30, marginTop: 3 }}
+              style={{ height: 30, marginTop: 5 }}
             >
               Room
             </Button>

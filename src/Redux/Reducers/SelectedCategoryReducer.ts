@@ -17,7 +17,7 @@ const initialState: CategoryState = {
         { key: 1, label: "Hate", categorizedName: "Hate Comment"  },
         { key: 2, label: "Questions", categorizedName: "Question"  },
         { key: 3, label: "Comments", categorizedName: "Normal Comment"  },
-        { key: 4, label: "Heartfelt Messages", categorizedName: "Heart Felt Comment"  }]
+        { key: 4, label: "Heartfelt Messages", categorizedName: "Heart felt comment"  }]
 }
 
 export const SelectedCategoryReducer = (state: CategoryState = initialState, action: Action): CategoryState => {
