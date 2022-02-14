@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../../firebase";
 import { GetUser } from "../../../Redux/Actions/UserActions";
+import { RootState } from "../../../Store";
 import LogoutAndShareBar from "../../LogoutAndShareBar/LogoutAndShareBar";
 import { Messages } from "../../Messages/Messages";
 import { MsgInput } from "../../MsgInput/MessageInput";
@@ -12,6 +13,10 @@ import NewInfluencerPlaceholder from "../NewInfluencerPlaceholder/NewInfluencerP
 
 const Influencer: React.FC = () => {
   const dispatch = useDispatch();
+
+  const messagesCount = useSelector(
+    (state: RootState) => state.chatsState.messages.length
+  );
 
   useEffect(() => {
     dispatch(GetUser(auth.currentUser!.uid));
@@ -26,8 +31,11 @@ const Influencer: React.FC = () => {
         <LogoutAndShareBar></LogoutAndShareBar>
       </header>
       <section>
-        <NewInfluencerPlaceholder></NewInfluencerPlaceholder>
-        {/* <Messages></Messages> */}
+        {messagesCount > 0 ? (
+          <Messages></Messages>
+        ) : (
+          <NewInfluencerPlaceholder></NewInfluencerPlaceholder>
+        )}
         <MsgInput></MsgInput>
       </section>
     </div>

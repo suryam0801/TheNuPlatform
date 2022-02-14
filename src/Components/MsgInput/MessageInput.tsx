@@ -44,7 +44,7 @@ export const MsgInput: React.FC = () => {
           borderRadius: 10,
           padding: 15,
           margin: 5,
-          fontSize: 13,
+          fontSize: 16,
         }}
       />
 

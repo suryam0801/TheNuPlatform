@@ -12,11 +12,13 @@ function App() {
     <div className="App">
       {!user ? (
         <Routes>
+          <Route path="/Login" element={<Welcome></Welcome>} />
           <Route path="/" element={<Welcome></Welcome>} />
           <Route path="/:id" element={<ChatView></ChatView>} />
         </Routes>
       ) : (
         <Routes>
+          <Route path="/Login" element={<Welcome></Welcome>} />
           <Route path="/" element={<Influencer></Influencer>} />
           <Route path="/:id" element={<ChatView></ChatView>} />
         </Routes>
