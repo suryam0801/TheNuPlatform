@@ -26,7 +26,7 @@ export const ChatReducer = (state: ChatState = initialState, action: Action): Ch
         case ChatReducer_Types.APPEND_NEW_MESSAGE:
             return {
                 ...state,
-                messages: [...state.messages, action.payload]
+                messages: state.messages.concat(action.payload)
             }
         default:
             return state

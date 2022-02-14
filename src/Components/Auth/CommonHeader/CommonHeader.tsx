@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Store";
 import { Link } from "react-router-dom";
+import { auth } from "../../../firebase";
 
 export default function CommonHeader() {
   const user = useSelector((state: RootState) => state.userReducer.user);
@@ -29,13 +30,13 @@ export default function CommonHeader() {
           </div>
         </Grid>
         <Grid item xs={4} style={{ backgroundColor: "white" }}>
-          <Link to="/Login">
+          <Link to={auth.currentUser ? "/" : "/Login"}>
             <Button
               variant="contained"
-              startIcon={<AddIcon />}
+              startIcon={auth.currentUser ? <div /> : <AddIcon />}
               style={{ height: 30, marginTop: 5 }}
             >
-              Room
+              {auth.currentUser ? "My Page" : "Room"}
             </Button>
           </Link>
         </Grid>

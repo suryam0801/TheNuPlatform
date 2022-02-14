@@ -28,7 +28,6 @@ function SetCategorisedMessagesAction(messages: CategorisedMessage[]) {
     };
 }
 
-
 export const SetMessage = (message: ChatMessage): ThunkAction<void, RootState, null, Action> => async (dispatch, getState) => {
     dispatch(SetMessageAction(message))
 }

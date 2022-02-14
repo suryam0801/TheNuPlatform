@@ -19,6 +19,5 @@ export const GetUser = (userId: string): ThunkAction<void, RootState, null, Acti
     onValue(usersRef, (snapshot) => {
         const user = snapshot.val();
         dispatch(SetUserAction(user))
-        dispatch(GetMessages(userId))
     });
 }

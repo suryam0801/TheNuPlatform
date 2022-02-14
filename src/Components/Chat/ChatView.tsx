@@ -9,8 +9,6 @@ import { Col, Row } from "react-bootstrap";
 import CommonHeader from "../Auth/CommonHeader/CommonHeader";
 
 export default function ChatView() {
-  const dispatch = useDispatch();
-
   // Render
   return (
     <div className="App">

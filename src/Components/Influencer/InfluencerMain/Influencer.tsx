@@ -14,10 +14,6 @@ import NewInfluencerPlaceholder from "../NewInfluencerPlaceholder/NewInfluencerP
 const Influencer: React.FC = () => {
   const dispatch = useDispatch();
 
-  const messagesCount = useSelector(
-    (state: RootState) => state.chatsState.messages.length
-  );
-
   useEffect(() => {
     dispatch(GetUser(auth.currentUser!.uid));
   }, []);
@@ -31,11 +27,7 @@ const Influencer: React.FC = () => {
         <LogoutAndShareBar></LogoutAndShareBar>
       </header>
       <section>
-        {messagesCount > 0 ? (
-          <Messages></Messages>
-        ) : (
-          <NewInfluencerPlaceholder></NewInfluencerPlaceholder>
-        )}
+        <Messages></Messages>
         <MsgInput></MsgInput>
       </section>
     </div>

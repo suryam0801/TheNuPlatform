@@ -8,6 +8,8 @@ import useChatsHook from "../../FirebaseCalls/useChatListener";
 import { useParams } from "react-router-dom";
 import { Message } from "../Message/Message";
 import { getRandomInt } from "../../Utils/GeneralUtils";
+import NewInfluencerPlaceholder from "../Influencer/NewInfluencerPlaceholder/NewInfluencerPlaceholder";
+import { influencerPicNumber } from "../../Utils/AvatarUrl";
 
 export const Messages: React.FC = () => {
   const categories = useSelector(
@@ -39,13 +41,27 @@ export const Messages: React.FC = () => {
     }
   });
 
-  const influencerPicNumber = getRandomInt(0, 8);
+  function messagesList() {
+    return (
+      <>
+        {messages.map((message) => (
+          <Message
+            influencerPicNumber={influencerPicNumber}
+            chatMessage={message}
+            influencerId={id ?? ""}
+          />
+        ))}
+      </>
+    );
+  }
 
   return (
     <div id="chat" className="main">
-      {messages.map((message) => (
-        <Message influencerPicNumber={influencerPicNumber} chatMessage={message} influencerId={id ?? ""} />
-      ))}
+      {messages.length > 0 ? (
+        messagesList()
+      ) : (
+        <NewInfluencerPlaceholder></NewInfluencerPlaceholder>
+      )}
     </div>
   );
 };
