@@ -5,16 +5,20 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { auth } from "../../firebase";
 import { Grid, IconButton } from "@mui/material";
 import useAuthHook from "../../CustomHooks/useAuthHook";
+import { RootState } from "../../Store";
+import { useSelector } from "react-redux";
 
 export default function LogoutAndShareBar() {
 
   const {SignOut} = useAuthHook();
 
+  const influencer = useSelector((state: RootState) => state.influencerReducer.influencer)
+
   async function showInfoWindow() {
     try {
       await navigator.share({
         title: "Share My Page",
-        url: "#/" + auth.currentUser!.uid,
+        url: "#/" + influencer?.Username,
       });
       console.log("Data was shared successfully");
     } catch (err) {

@@ -39,10 +39,18 @@ export function SetConfirmationResultAction(confirmR: ConfirmationResult | null)
     };
 }
 
+export function SetUserExistsACtion(userExists: boolean | null) {
+    return {
+        type: LoginReducer_Types.SET_USER_EXISTS,
+        payload: userExists
+    };
+}
+
 export const ClearLoginStates = (): ThunkAction<void, RootState, null, Action> => async (dispatch, getState) => {
     dispatch(SetCodeAction(""))
     dispatch(SetOtpAction(""))
     dispatch(SetPNOAction(""))
     dispatch(SetConfirmationResultAction(null))
     dispatch(SetOtpShowAction(false))
+    dispatch(SetUserExistsACtion(null))
 }

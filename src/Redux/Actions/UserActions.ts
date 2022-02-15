@@ -2,22 +2,28 @@ import { RootState } from "../../Store";
 import { Action } from "../ActionType";
 import { ThunkAction } from "redux-thunk";
 import { User } from "../../Models/User";
-import { UserReducer_Type } from "../Reducers/UserReducer";
+import { CurrentInfluencerReducer_Types } from "../Reducers/UserReducer";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
-import { GetMessages } from "./ChatActions";
+import { SetUserExistsACtion } from "./LoginActions";
 
-function SetUserAction(user: User | null) {
+export function SetInfluencerAction(infleuncer: User | null) {
     return {
-        type: UserReducer_Type.SET_LOGGED_IN_USER,
-        payload: user
+        type: CurrentInfluencerReducer_Types.SET_CURRENT_INFLUENCER,
+        payload: infleuncer
     };
 }
 
-export const GetUser = (userId: string): ThunkAction<void, RootState, null, Action> => async (dispatch, getState) => {
+export const GetInfluencer = (userId: string): ThunkAction<void, RootState, null, Action> => async (dispatch, getState) => {
     const usersRef = ref(db, 'users/' + userId);
     onValue(usersRef, (snapshot) => {
-        const user = snapshot.val();
-        dispatch(SetUserAction(user))
+
+        if (snapshot.exists()) {
+            const user = snapshot.val();
+            dispatch(SetInfluencerAction(user))
+            dispatch(SetUserExistsACtion(true))
+        } else {
+            dispatch(SetUserExistsACtion(false))
+        }
     });
 }

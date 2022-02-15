@@ -56,7 +56,7 @@ export const PhoneNumberLogin: React.FC = () => {
             marginBottom: 60,
           }}
         >
-          Real People | Anonymous Chat
+          Real People | Closer Connections
         </h5>
 
         {!otpShow ? <h3>Enter your Phone Number</h3> : <h3>Enter the OTP</h3>}

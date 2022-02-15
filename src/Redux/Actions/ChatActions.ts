@@ -14,7 +14,7 @@ function SetMessageAction(message: ChatMessage) {
     };
 }
 
-function SetMessagesAction(messages: ChatMessage[]) {
+export function SetMessagesAction(messages: ChatMessage[]) {
     return {
         type: ChatReducer_Types.SET_MESSAGES,
         payload: messages

@@ -1,22 +1,27 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { auth } from "../../firebase";
-import { GetUser } from "../../Redux/Actions/UserActions";
+import { useSelector } from "react-redux";
 import { Messages } from "../Messages/Messages";
 import { MsgInput } from "../MsgInput/MessageInput";
 import "../../App.css";
-import { Col, Row } from "react-bootstrap";
 import CommonHeader from "../Auth/CommonHeader/CommonHeader";
+import { RootState } from "../../Store";
+import useGetInfluencer from "../../CustomHooks/useGetInfluencer";
+import IdentitySeparationRow from "../IdentityRowSeperator/IdentitySeparationRow";
 
 export default function ChatView() {
   // Render
+
+  useGetInfluencer();
+
+  const influencer = useSelector((state: RootState) => state.influencerReducer.influencer)
+
   return (
     <div className="App">
       <header>
         <CommonHeader></CommonHeader>
-        <h5 style={{ color: "white", letterSpacing: 2, marginTop: 4 }}>
-          Connect With Your Favorite Influencers
-        </h5>
+        <IdentitySeparationRow></IdentitySeparationRow>
+        {/* <h5 style={{ color: "white", letterSpacing: 2, marginTop: 4 }}>
+          Connect With {influencer?.Username ?? " Your Favorite Influencers"}
+        </h5> */}
       </header>
       <section>
         <Messages></Messages>

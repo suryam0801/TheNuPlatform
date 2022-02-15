@@ -7,17 +7,19 @@ import { writeChat } from "../../FirebaseCalls/FirebaseCalls";
 import { ChatMessage } from "../../Models/ChatMessage";
 import { auth } from "../../firebase";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Store";
 
 export const MsgInput: React.FC = () => {
   const [msg, setMsg] = useState("");
 
-  const { id } = useParams();
+  const influencer = useSelector((state: RootState) => state.influencerReducer.influencer)
 
   const sendHandler = () => {
     if (msg) {
       writeChat({
         Message: msg,
-        InfluencerId: auth.currentUser?.uid ?? id,
+        InfluencerId: influencer?.UserId,
         SentBy: auth.currentUser ? auth.currentUser!.uid : "",
         Date: new Date().valueOf(),
       } as ChatMessage);

@@ -3,22 +3,22 @@ import { User } from "../../Models/User";
 import { Action } from "../ActionType";
 
 export enum UITrigger_Types {
-    SET_INFLUENCER_MODAL_DISPLAY = "SET_INFLUENCER_MODAL_DISPLAY"
+    SET_LOADING = "SET_LOADING"
 }
 
 export interface UITriggerState {
-    showInfluencerInfo: boolean
+    showLoader: boolean
 }
 
 const initialState: UITriggerState = {
-    showInfluencerInfo: false
+    showLoader: false
 }
 
 export const UITriggerReducer = (state: UITriggerState = initialState, action: Action): UITriggerState => {
     switch (action.type) {
-        case UITrigger_Types.SET_INFLUENCER_MODAL_DISPLAY:
+        case UITrigger_Types.SET_LOADING:
             return {
-                showInfluencerInfo: action.payload
+                showLoader: action.payload
             }
         default:
             return state

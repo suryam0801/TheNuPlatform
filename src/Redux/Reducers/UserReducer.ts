@@ -2,23 +2,23 @@ import { ChatMessage } from "../../Models/ChatMessage";
 import { User } from "../../Models/User";
 import { Action } from "../ActionType";
 
-export enum UserReducer_Type {
-    SET_LOGGED_IN_USER = "SET_LOGGED_IN_USER"
+export enum CurrentInfluencerReducer_Types {
+    SET_CURRENT_INFLUENCER = "SET_CURRENT_INFLUENCER"
 }
 
-export interface UserState {
-    user: User | null
+export interface InfluencerState {
+    influencer: User | null
 }
 
-const initialState: UserState = {
-    user: null
+const initialState: InfluencerState = {
+    influencer: null
 }
 
-export const UserReducer = (state: UserState = initialState, action: Action): UserState => {
+export const InfluencerReducer = (state: InfluencerState = initialState, action: Action): InfluencerState => {
     switch (action.type) {
-        case UserReducer_Type.SET_LOGGED_IN_USER:
+        case CurrentInfluencerReducer_Types.SET_CURRENT_INFLUENCER:
             return {
-                user: action.payload
+                influencer: action.payload
             }
         default:
             return state

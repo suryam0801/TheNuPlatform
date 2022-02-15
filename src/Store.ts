@@ -4,11 +4,11 @@ import { ChatReducer } from "./Redux/Reducers/ChatReducer";
 import { LoginReducer } from "./Redux/Reducers/LoginReducer";
 import { SelectedCategoryReducer } from "./Redux/Reducers/SelectedCategoryReducer";
 import { UITriggerReducer } from "./Redux/Reducers/UITriggerReducer";
-import { UserReducer } from "./Redux/Reducers/UserReducer";
+import { InfluencerReducer } from "./Redux/Reducers/UserReducer";
 
 const rootReducer = combineReducers({
     chatsState: ChatReducer,
-    userReducer: UserReducer,
+    influencerReducer: InfluencerReducer,
     selectedCategoryReducer: SelectedCategoryReducer,
     uiTriggerReducer: UITriggerReducer,
     loginReducer: LoginReducer

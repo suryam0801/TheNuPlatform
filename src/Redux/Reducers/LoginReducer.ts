@@ -7,7 +7,8 @@ export enum LoginReducer_Types {
     SET_PNO = "SET_PNO",
     SET_OTP_SHOW = "SET_OTP_SHOW",
     SET_OTP = "SET_OTP",
-    SET_CONFIRMATION_RESULT = "SET_CONFIRMATION_RESULT"
+    SET_CONFIRMATION_RESULT = "SET_CONFIRMATION_RESULT",
+    SET_USER_EXISTS = "SET_USER_EXISTS"
 }
 
 export interface LoginState {
@@ -15,7 +16,8 @@ export interface LoginState {
     pno: string,
     otpShow: boolean,
     otp: string,
-    confirmationR: ConfirmationResult | null
+    confirmationR: ConfirmationResult | null,
+    userExists: boolean | null
 }
 
 const initialState: LoginState = {
@@ -23,7 +25,8 @@ const initialState: LoginState = {
     pno: "",
     otpShow: false,
     otp: "",
-    confirmationR: null
+    confirmationR: null,
+    userExists: null
 }
 
 export const LoginReducer = (state: LoginState = initialState, action: Action): LoginState => {
@@ -52,6 +55,11 @@ export const LoginReducer = (state: LoginState = initialState, action: Action): 
             return {
                 ...state,
                 confirmationR: action.payload
+            }
+        case LoginReducer_Types.SET_USER_EXISTS:
+            return {
+                ...state,
+                userExists: action.payload
             }
         default:
             return state

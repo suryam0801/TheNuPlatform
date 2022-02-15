@@ -44,8 +44,8 @@ export const Message: React.FC<PropsMessage> = (props) => {
   }
 
   function getMessageAlignment() {
-    if (auth.currentUser) {
-      if (props.chatMessage.SentBy === auth.currentUser?.uid) {
+    if (auth.currentUser && (auth.currentUser.uid === props.influencerId)) {
+      if (props.chatMessage.SentBy === auth.currentUser.uid) {
         return "sent";
       } else {
         return "received";
@@ -60,8 +60,8 @@ export const Message: React.FC<PropsMessage> = (props) => {
   }
 
   function getReplyColor() {
-    if (auth.currentUser) {
-      if (props.chatMessage.SentBy === auth.currentUser?.uid) {
+    if (auth.currentUser && (auth.currentUser.uid === props.influencerId)) {
+      if (props.chatMessage.SentBy === auth.currentUser.uid) {
         return "replyBlue";
       } else {
         return "reply";

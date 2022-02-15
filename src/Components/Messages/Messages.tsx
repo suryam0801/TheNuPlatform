@@ -4,7 +4,7 @@ import { createSelector } from "reselect";
 
 // Local Imports
 import { RootState } from "../../Store";
-import useChatsHook from "../../FirebaseCalls/useChatListener";
+import useChatsHook from "../../CustomHooks/useChatListener";
 import { useParams } from "react-router-dom";
 import { Message } from "../Message/Message";
 import { getRandomInt } from "../../Utils/GeneralUtils";
@@ -30,9 +30,9 @@ export const Messages: React.FC = () => {
 
   const messages = useSelector(showMessages);
 
-  useChatsHook();
+  const influencer = useSelector((state:RootState) => state.influencerReducer.influencer)
 
-  const { id } = useParams();
+  useChatsHook();
 
   useEffect(() => {
     const chatElement = document.getElementById("chat");
@@ -48,7 +48,7 @@ export const Messages: React.FC = () => {
           <Message
             influencerPicNumber={influencerPicNumber}
             chatMessage={message}
-            influencerId={id ?? ""}
+            influencerId={influencer?.UserId ?? ""}
           />
         ))}
       </>

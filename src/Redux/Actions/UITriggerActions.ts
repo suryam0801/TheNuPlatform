@@ -1,8 +1,8 @@
 import {UITrigger_Types} from "../Reducers/UITriggerReducer"
 
-export default function SetShowInfluencerInfo(trigger: boolean) {
+export function SetLoadingScreenAction(trigger: boolean) {
     return {
-        type: UITrigger_Types.SET_INFLUENCER_MODAL_DISPLAY,
+        type: UITrigger_Types.SET_LOADING,
         payload: trigger
     };
 }

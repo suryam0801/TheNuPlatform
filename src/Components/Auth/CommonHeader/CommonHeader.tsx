@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { auth } from "../../../firebase";
 
 export default function CommonHeader() {
-  const user = useSelector((state: RootState) => state.userReducer.user);
+  const influencer = useSelector((state: RootState) => state.influencerReducer.influencer);
 
   return (
     <div>
@@ -15,14 +15,14 @@ export default function CommonHeader() {
         <Grid item xs={8}>
           <div
             style={{
-              height: 37,
+              height: 33,
               backgroundColor: "white",
               color: "black",
               fontSize: 25,
               fontWeight: "bold",
               textAlign: "center",
               alignItems: "center",
-              paddingTop: 5,
+              paddingTop: 2,
               paddingLeft: 5
             }}
           >
@@ -30,11 +30,11 @@ export default function CommonHeader() {
           </div>
         </Grid>
         <Grid item xs={4} style={{ backgroundColor: "white" }}>
-          <Link to={auth.currentUser ? "/" : "/Login"}>
+          <Link to="/">
             <Button
               variant="contained"
               startIcon={auth.currentUser ? <div /> : <AddIcon />}
-              style={{ height: 30, marginTop: 5 }}
+              style={{ height: 30, marginTop: 2 }}
             >
               {auth.currentUser ? "My Page" : "Room"}
             </Button>
